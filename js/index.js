@@ -1,34 +1,23 @@
-document.getElementById('searchForm').addEventListener('submit', function(event) {
+document.getElementById('searchForm').addEventListener('submit', async function(event) {
     event.preventDefault(); 
 
     const productName = document.getElementById('productName').value;
 
-    buscarProducto(productName)
-        .then(function(productos) {
-            mostrarResultados(productos);
-        })
-        .catch(function(error) {
-            mostrarError(error);
-        });
+    try {
+        const productos = await buscarProducto(productName);
+        mostrarResultados(productos);
+    } catch (error) {
+        mostrarError(error);
+    }
 });
 
-function buscarProducto(productName) {
-    return new Promise(function(resolve, reject) {
-        fetch('url_de_tu_api/productos?nombre=' + productName)
-        // Asegúrate de reemplazar 'url_de_tu_api/productos?nombre=' con la URL real de tu API donde se buscarán los productos. 
-            .then(function(response) {
-                if (!response.ok) {
-                    throw new Error('No se pudo completar la solicitud');
-                }
-                return response.json();
-            })
-            .then(function(data) {
-                resolve(data);
-            })
-            .catch(function(error) {
-                reject(error);
-            });
-    });
+async function buscarProducto(productName) {
+    const response = await fetch(`url_de_tu_api/productos?nombre=${encodeURIComponent(productName)}`);
+// Asegúrate de reemplazar 'url_de_tu_api/productos?nombre=' con la URL real de tu API donde se buscarán los productos. 
+if (!response.ok) {
+        throw new Error('No se pudo completar la solicitud');
+    }
+    return response.json();
 }
 
 function mostrarResultados(productos) {

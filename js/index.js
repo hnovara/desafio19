@@ -1,5 +1,5 @@
 document.getElementById('searchForm').addEventListener('submit', async function(event) {
-    event.preventDefault(); 
+    event.preventDefault(); // Evitar que el formulario se envíe de manera convencional
 
     const productName = document.getElementById('productName').value;
 
@@ -12,9 +12,8 @@ document.getElementById('searchForm').addEventListener('submit', async function(
 });
 
 async function buscarProducto(productName) {
-    const response = await fetch(`url_de_tu_api/productos?nombre=${encodeURIComponent(productName)}`);
-// Asegúrate de reemplazar 'url_de_tu_api/productos?nombre=' con la URL real de tu API donde se buscarán los productos. 
-if (!response.ok) {
+    const response = await fetch(`https://my-json-server.typicode.com/hnovara/desafio19-json/productos?q=${encodeURIComponent(productName)}`);
+    if (!response.ok) {
         throw new Error('No se pudo completar la solicitud');
     }
     return response.json();

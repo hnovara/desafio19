@@ -1,5 +1,5 @@
 document.getElementById('searchForm').addEventListener('submit', async function(event) {
-    event.preventDefault(); // Evitar que el formulario se envíe de manera convencional
+    event.preventDefault(); 
 
     const productName = document.getElementById('productName').value;
 

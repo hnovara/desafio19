@@ -12,11 +12,12 @@ document.getElementById('searchForm').addEventListener('submit', async function(
 });
 
 async function buscarProducto(productName) {
-    const response = await fetch(`https://my-json-server.typicode.com/hnovara/desafio19-json/productos?q=${encodeURIComponent(productName)}`);
+    const response = await fetch(`https://my-json-server.typicode.com/hnovara/desafio19-json/productos`);
     if (!response.ok) {
         throw new Error('No se pudo completar la solicitud');
     }
-    return response.json();
+    const data = await response.json();
+    return data.filter(producto => producto.nombre.toLowerCase().includes(productName.toLowerCase()));
 }
 
 function mostrarResultados(productos) {

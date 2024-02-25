@@ -27,7 +27,7 @@ function mostrarResultados(productos) {
         const listaProductos = document.createElement('ul');
         productos.forEach(function(producto) {
             const listItem = document.createElement('li');
-            listItem.textContent = `${producto.nombre} - Precio: ${producto.precio}`;
+            listItem.innerHTML = `${producto.nombre} <span>Precio: ${producto.precio}</span>`;
             listaProductos.appendChild(listItem);
         });
         searchResults.innerHTML = '';
